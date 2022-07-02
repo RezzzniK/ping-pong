@@ -51,7 +51,7 @@ export default class Ball {
     this.y += this.direction.y * this.speed * delta; //direction of the ball multiple speed*delays between the frames to make ball move larger distance with long delays
     this.speed += SPEED_UP * delta; //increasing velocity x delta
     const ballPosition = this.borders();
-    console.log(ballPosition.right);
+    // console.log(ballPosition.right);
     if (ballPosition.bottom >= window.innerHeight || ballPosition.top <= 0) {
       this.direction.y *= -1;
     }
