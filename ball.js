@@ -46,7 +46,7 @@ export default class Ball {
     console.log(this.direction);
   }
 
-  update(delta) {
+  update(delta, platforms) {
     this.x += this.direction.x * this.speed * delta; //direction of the ball multiple speed*delays between the frames to make ball move larger distance with long delays
     this.y += this.direction.y * this.speed * delta; //direction of the ball multiple speed*delays between the frames to make ball move larger distance with long delays
     this.speed += SPEED_UP * delta; //increasing velocity x delta
@@ -55,13 +55,21 @@ export default class Ball {
     if (ballPosition.bottom >= window.innerHeight || ballPosition.top <= 0) {
       this.direction.y *= -1;
     }
-    // if (ballPosition.right >= window.innerWidth || ballPosition.left <= 0) {
-    //   this.direction.x *= -1;
-    // }
+    if (platforms.some((p) => isPlatformHit(p, ballPosition))) {
+      this.direction.x *= -1;
+    }
   }
   borders() {
     return this.ball.getBoundingClientRect();
   }
+}
+function isPlatformHit(platform, ballPos) {
+  return (
+    platform.left <= ballPos.right &&
+    platform.right >= ballPos.left &&
+    platform.top <= ballPos.bottom &&
+    platform.bottom >= ballPos.top
+  );
 }
 function randomHeading(min, max) {
   return Math.random() * (max - min) + min;

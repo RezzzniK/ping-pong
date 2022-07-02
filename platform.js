@@ -26,4 +26,8 @@ export default class Platform {
   reset() {
     this.position = 50;
   }
+  platformPhysics() {
+    //returning where the platform is placed
+    return this.platform.getBoundingClientRect();
+  }
 }
