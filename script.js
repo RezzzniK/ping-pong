@@ -88,12 +88,12 @@ function LetsPlay() {
     const ballPOs = ball.borders();
     if (ballPOs.right >= window.innerWidth) {
       playerScore.textContent = +playerScore.textContent + 1;
-      if (+playerScore.textContent == 1) {
+      if (+playerScore.textContent == 5) {
         WinBanner("plr");
       }
     } else {
       compScore.textContent = +compScore.textContent + 1;
-      if (+compScore.textContent == 1) {
+      if (+compScore.textContent == 5) {
         WinBanner("cmp");
       }
     }
