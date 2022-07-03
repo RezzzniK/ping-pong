@@ -2,22 +2,44 @@ import Ball from "./ball.js";
 import Platform from "./platform.js";
 
 main();
+let videoElement;
+let pageContent;
+// On window load, attach an event to the play button click
+// that triggers playback on the video element
+window.addEventListener("load", function (event) {
+  pageContent = this.document.getElementById("page-content");
+  pageContent.style.opacity = 1;
+  videoElement = document.getElementById("video-element");
+});
 
 function main() {
   document.addEventListener("keydown", EnterPlay);
 }
 function EnterPlay(event) {
   if (event.keyCode == "13") {
+    document.getElementById("welcome").style.opacity = 0;
+    document.getElementById("winner").style.opacity = 0;
+    pageContent.style.opacity = 1;
+    videoElement.play();
     console.log("enter the game");
-    LetsPlay();
+    setTimeout(() => {
+      videoElement.currentTime = videoElement.duration;
+    }, 10000);
+
+    videoElement.addEventListener("ended", videoEnded);
   }
   if (event.keyCode == "8") {
     window.location.href = "https://en.wikipedia.org/wiki/Pong";
   }
 }
+function videoEnded(event) {
+  LetsPlay();
+}
 function LetsPlay() {
+  pageContent.style.opacity = 0;
   document.removeEventListener("keydown", EnterPlay);
-  document.getElementById("welcome").style.opacity = 0;
+  document.removeEventListener("ended", videoEnded);
+
   const winMsg = document.getElementById("winner");
   const restart = document.getElementById("restart");
   const platformCssPlr = document.getElementById("plr-platform-id");
@@ -66,12 +88,12 @@ function LetsPlay() {
     const ballPOs = ball.borders();
     if (ballPOs.right >= window.innerWidth) {
       playerScore.textContent = +playerScore.textContent + 1;
-      if (+playerScore.textContent == 10) {
+      if (+playerScore.textContent == 1) {
         WinBanner("plr");
       }
     } else {
       compScore.textContent = +compScore.textContent + 1;
-      if (+compScore.textContent == 10) {
+      if (+compScore.textContent == 1) {
         WinBanner("cmp");
       }
     }
@@ -124,3 +146,5 @@ function LetsPlay() {
     restart.style.opacity = 0;
   }
 }
+
+/**ads */
